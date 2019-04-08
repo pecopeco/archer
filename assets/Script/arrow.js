@@ -68,10 +68,8 @@ cc.Class({
         if (this.node.y > 5000) {
             this.fly = false
             this.yLength = 0
-            this.arrowRotation = 0
             this.node.x = this.startX
             this.node.y = this.startY
-            this.node.parent.rotation = 0
         }
     },
 });
