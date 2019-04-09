@@ -22,17 +22,12 @@ cc.Class({
         let ctx = this.node.getComponent(cc.Graphics)
         let arrowX = this.arrow.position.x
         let arrowY = this.arrow.position.y - (this.arrow.height / 2) + 120
-        if (arrowY > -219) {
-            ctx.clear()
-            ctx.moveTo(-738, -220)
-            ctx.lineTo(742, -220)
-            ctx.stroke()
-        } else {
-            ctx.clear()
-            ctx.moveTo(-738, -220)
+        ctx.clear()
+        ctx.moveTo(-738, -220)
+        if (arrowY < -219) {
             ctx.lineTo(arrowX, arrowY)
-            ctx.lineTo(742, -220)
-            ctx.stroke()
         }
+        ctx.lineTo(742, -220)
+        ctx.stroke()
     },
 });
