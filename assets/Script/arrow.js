@@ -32,15 +32,16 @@ cc.Class({
         })
         // 拉动弓箭
         this.node.on('touchmove', (e) => {
-            this.yLength = e.getLocation().y - e.getStartLocation().y
-            this.xLength = e.getLocation().x - e.getStartLocation().x
-            // 防止拉出屏幕或点击就发射
-            if (this.yLength < -180 || this.yLength > -10) return
+            // touch世界坐标系转换为节点坐标系再计算距离
+            this.xLength = this.node.convertToNodeSpaceAR(e.getLocation()).x - this.node.convertToNodeSpaceAR(e.getStartLocation()).x
+            this.yLength = this.node.convertToNodeSpaceAR(e.getLocation()).y - this.node.convertToNodeSpaceAR(e.getStartLocation()).y
+            // 防止反拉或拉出屏幕
+            if (this.yLength > 0 || this.yLength < -562) return
+            // 设置拉动距离
+            this.node.y = this.startY + this.yLength
             // 设置拉动角度
             this.arrowRotation = Math.atan(this.xLength / (this.yLength - 50)) * 180 / Math.PI
             this.node.parent.rotation = this.arrowRotation
-            // 设置拉动距离
-            this.node.y = this.startY + (this.yLength * 3) - ((Math.abs(this.arrowRotation) / 45) * 200)
         })
         // 拉动后放手
         this.node.on('touchend', (e) => {
@@ -67,7 +68,6 @@ cc.Class({
         // 弓箭飞出屏幕重置状态
         if (this.node.y > 5000) {
             this.fly = false
-            this.yLength = 0
             this.node.x = this.startX
             this.node.y = this.startY
         }
