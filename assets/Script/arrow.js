@@ -3,10 +3,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        arch: {
-            default: null,
-            type: cc.Node
-        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -45,12 +41,14 @@ cc.Class({
         })
         // 拉动后放手
         this.node.on('touchend', (e) => {
-            if (this.node.y > 260) return
+            // 防止点射
+            if (this.yLength >= 0) return
             this.fly = true
         })
         // 拉动后放手
         this.node.on('touchcancel', (e) => {
-            if (this.node.y > 260) return
+            // 防止点射
+            if (this.yLength >= 0) return
             this.fly = true
         })
     },
@@ -68,6 +66,7 @@ cc.Class({
         // 弓箭飞出屏幕重置状态
         if (this.node.y > 5000) {
             this.fly = false
+            this.yLength = 0
             this.node.x = this.startX
             this.node.y = this.startY
         }
