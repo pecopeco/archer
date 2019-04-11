@@ -5,8 +5,6 @@ cc.Class({
     properties: {
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     // 目标掉落
     setAction: function () {
         let xLength = xLength = 10 * this.node.getChildByName("arrow").rotation
@@ -32,46 +30,41 @@ cc.Class({
         if (!this.stopMove) {
             this.node.x -= dt * 100
         }
+        // 射中物体距离计算(统一坐标系)
+        let shootArrow = this.main.arch.getComponent('arch').node.getChildByName("arrow")
+        // 箭体被销毁、已经被射落不再执行射中逻辑
+        if (shootArrow && !this.arrowAdded) {
+            let arrowPosition = shootArrow.parent.convertToWorldSpaceAR(shootArrow.getPosition())
+            let goalPosition = this.node.parent.convertToWorldSpaceAR(this.node.position)
+            let distance = goalPosition.sub(arrowPosition).mag()
+            if (distance < 60) {
+                // 得分
+                this.main.addScore()
+                // 停止原箭体飞行
+                shootArrow.getComponent('arrow').fly = false
+                // 添加伪箭体到射中目标物
+                this.arrowAdded = true
+                this.main.addArrow(this.node)
+                // 设置目标物携带箭体大小、角度
+                this.node.getChildByName("arrow").rotation = shootArrow.parent.rotation
+                this.node.getChildByName("arrow").setPosition(this.node.convertToNodeSpaceAR(arrowPosition))
+                this.node.getChildByName("arrow").scale = 0.68
+                this.node.getChildByName("arrow").setSiblingIndex(5)
+                // 执行目标掉落动作
+                this.stopMove = true
+                this.node.runAction(this.setAction())
+                // 销毁已射中原箭体，并延迟添加新箭体
+                shootArrow.destroy()
+                this.main.delayAddArrow(this.main.arch.getComponent('arch').node)
+                // 重建目标节点
+                // this.main.addGoal()
+                // this.node.destroy()
+            }
+        }
         // 超出屏幕，重建目标节点
         if (this.node.x < ((-this.node.parent.width / 2) - 100) || (this.node.y < ((-this.node.parent.height / 2) - 500))) {
             this.main.addGoal()
             this.node.destroy()
-        }
-        // 射中物体距离计算(统一坐标系)
-        let shootArrow = this.main.arch.getComponent('arch').node.getChildByName("arrow")
-        // 箭体被销毁、已经被射落不再执行射中逻辑
-        if (!shootArrow || this.arrowAdded) return
-        let arrowPosition = shootArrow.parent.convertToWorldSpaceAR(shootArrow.getPosition())
-        let goalPosition = this.node.parent.convertToWorldSpaceAR(this.node.position)
-        let distance = goalPosition.sub(arrowPosition).mag()
-        if (distance < 60) {
-            // 得分
-            this.main.addScore()
-            // 停止原箭体飞行
-            shootArrow.getComponent('arrow').fly = false
-            // 添加伪箭体到射中目标物
-            this.arrowAdded = true
-            this.main.addArrow(this.node)
-            // 设置目标物携带箭体大小、角度
-            this.node.getChildByName("arrow").rotation = shootArrow.parent.rotation
-            this.node.getChildByName("arrow").setPosition(this.node.convertToNodeSpaceAR(arrowPosition))
-            this.node.getChildByName("arrow").scale = 0.68
-            this.node.getChildByName("arrow").setSiblingIndex(5)
-            // 执行目标掉落动作
-            this.stopMove = true
-            this.node.runAction(this.setAction())
-            // 销毁已射中原箭体，并1秒后在弓上添加新箭体
-            shootArrow.destroy()
-            setTimeout(() => {
-                if (!this.main.arch.getComponent('arch').node.getChildByName("arrow")) {
-                    this.main.addArrow(this.main.arch.getComponent('arch').node)
-                }
-                // 允许目标被多次射中
-                // this.arrowAdded = false
-            }, 1000)
-            // 重建目标节点
-            // this.main.addGoal()
-            // this.node.destroy()
         }
     },
 });

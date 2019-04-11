@@ -29,6 +29,12 @@ cc.Class({
         }
     },
 
+    delayAddArrow: function (node) {
+        setTimeout(() => {
+            this.addArrow(node)
+        }, 1000)
+    },
+
     addArrow: function (node) {
         let newArrow = null;
         // 判断对象池中是否有空闲的对象
