@@ -2,18 +2,27 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        arrow: {
+        arch: {
             default: null,
-            type: cc.Node
-        },
-        goal: {
-            default: null,
-            type: cc.Prefab
+            type: cc.Sprite
         },
         score: {
             default: null,
             type: cc.Label
+        },
+        arrow: {
+            default: null,
+            type: cc.Prefab
+        },
+        goal: {
+            default: null,
+            type: cc.Prefab
         }
+    },
+
+    addArrow: function () {
+        this.newArrow = cc.instantiate(this.arrow)
+        this.arch.getComponent('arch').node.addChild(this.newArrow)
     },
 
     addGoal: function () {
@@ -37,6 +46,8 @@ cc.Class({
         this.scorePoint = 0
         // 添加节点
         this.addGoal()
+        // 添加箭体
+        this.addArrow()
     },
 
     // called every frame

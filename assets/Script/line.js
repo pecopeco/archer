@@ -3,10 +3,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        arrow: {
-            default: null,
-            type: cc.Node
-        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -19,9 +15,10 @@ cc.Class({
     },
 
     update (dt) {
+        let shootArrow = this.node.parent.getChildByName("arrow")
         let ctx = this.node.getComponent(cc.Graphics)
-        let arrowX = this.arrow.position.x
-        let arrowY = this.arrow.position.y - (this.arrow.height / 2) + 120
+        let arrowX = shootArrow.position.x
+        let arrowY = shootArrow.position.y - (shootArrow.height / 2) + 120
         ctx.clear()
         ctx.moveTo(-738, -220)
         if (arrowY < -219) {

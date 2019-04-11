@@ -31,7 +31,7 @@ cc.Class({
             // touch世界坐标系转换为节点坐标系再计算距离
             this.xLength = this.node.convertToNodeSpaceAR(e.getLocation()).x - this.node.convertToNodeSpaceAR(e.getStartLocation()).x
             this.yLength = this.node.convertToNodeSpaceAR(e.getLocation()).y - this.node.convertToNodeSpaceAR(e.getStartLocation()).y
-            // 设置拉动角度
+            // 为弓设置拉动角度
             this.arrowRotation = Math.atan(this.xLength / (this.yLength - 50)) * 180 / Math.PI
             this.node.parent.rotation = this.arrowRotation
             // 防止反拉或拉出屏幕
