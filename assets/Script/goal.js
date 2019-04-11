@@ -29,6 +29,7 @@ cc.Class({
         if (distance < 80) {
             // 得分，重建目标节点
             this.main.addScore()
+            // shootArrow.parent = this.node
             this.main.addGoal()
             this.node.destroy()
         }

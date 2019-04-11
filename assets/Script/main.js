@@ -20,9 +20,25 @@ cc.Class({
         }
     },
 
+    addPool: function () {
+        // 预设同屏最多五根箭
+        this.arrowPool = new cc.NodePool()
+        let initCount = 5
+        for (let i = 0; i < initCount; ++i) {
+            this.arrowPool.put(cc.instantiate(this.arrow))
+        }
+    },
+
     addArrow: function () {
-        this.newArrow = cc.instantiate(this.arrow)
-        this.arch.getComponent('arch').node.addChild(this.newArrow)
+        // 添加箭体
+        let newArrow = null;
+        // 判断对象池中是否有空闲的对象
+        if (this.arrowPool.size() > 0) {
+            newArrow = this.arrowPool.get()
+        } else { // 池中备用对象不够时，用 cc.instantiate 重新创建
+            newArrow = cc.instantiate(this.arrow)
+        }
+        this.arch.getComponent('arch').node.addChild(newArrow)
     },
 
     addGoal: function () {
@@ -47,6 +63,7 @@ cc.Class({
         // 添加节点
         this.addGoal()
         // 添加箭体
+        this.addPool()
         this.addArrow()
     },
 
