@@ -14,6 +14,10 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        breakArrow: {
+            default: null,
+            type: cc.Prefab
+        },
         goal: {
             default: null,
             type: cc.Prefab
@@ -27,6 +31,12 @@ cc.Class({
         for (let i = 0; i < initCount; ++i) {
             this.arrowPool.put(cc.instantiate(this.arrow))
         }
+    },
+
+    addBreakArrow: function (node) {
+        let newArrow = cc.instantiate(this.breakArrow)
+        // 添加箭体
+        node.addChild(newArrow)
     },
 
     delayAddArrow: function (node) {

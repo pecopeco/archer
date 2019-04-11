@@ -7,7 +7,7 @@ cc.Class({
 
     // 目标掉落
     setAction: function () {
-        let xLength = xLength = 10 * this.node.getChildByName("arrow").rotation
+        let xLength = xLength = 10 * this.node.getChildByName("break-arrow").rotation
         var jumpUp = cc.moveBy(0.2, cc.v2(xLength, 150)).easing(cc.easeCubicActionOut())
         var jumpDown = cc.moveBy(2, cc.v2(xLength, -2000)).easing(cc.easeCubicActionIn())
         var actionBy = cc.rotateBy(2, 360)
@@ -37,19 +37,20 @@ cc.Class({
             let arrowPosition = shootArrow.parent.convertToWorldSpaceAR(shootArrow.getPosition())
             let goalPosition = this.node.parent.convertToWorldSpaceAR(this.node.position)
             let distance = goalPosition.sub(arrowPosition).mag()
-            if (distance < 60) {
+            if (distance < 80) {
                 // 得分
                 this.main.addScore()
                 // 停止原箭体飞行
                 shootArrow.getComponent('arrow').fly = false
                 // 添加伪箭体到射中目标物
                 this.arrowAdded = true
-                this.main.addArrow(this.node)
+                this.main.addBreakArrow(this.node)
                 // 设置目标物携带箭体大小、角度
-                this.node.getChildByName("arrow").rotation = shootArrow.parent.rotation
-                this.node.getChildByName("arrow").setPosition(this.node.convertToNodeSpaceAR(arrowPosition))
-                this.node.getChildByName("arrow").scale = 0.68
-                this.node.getChildByName("arrow").setSiblingIndex(5)
+                console.log(this.node)
+                this.node.getChildByName("break-arrow").rotation = shootArrow.parent.rotation
+                this.node.getChildByName("break-arrow").setPosition(this.node.convertToNodeSpaceAR(arrowPosition))
+                this.node.getChildByName("break-arrow").scale = 0.68
+                this.node.getChildByName("break-arrow").setSiblingIndex(5)
                 // 执行目标掉落动作
                 this.stopMove = true
                 this.node.runAction(this.setAction())
