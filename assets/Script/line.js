@@ -16,6 +16,7 @@ cc.Class({
 
     update (dt) {
         let shootArrow = this.node.parent.getChildByName("arrow")
+        if (!shootArrow) return
         let ctx = this.node.getComponent(cc.Graphics)
         let arrowX = shootArrow.position.x
         let arrowY = shootArrow.position.y - (shootArrow.height / 2) + 120

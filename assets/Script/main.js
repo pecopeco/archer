@@ -29,8 +29,7 @@ cc.Class({
         }
     },
 
-    addArrow: function () {
-        // 添加箭体
+    addArrow: function (node) {
         let newArrow = null;
         // 判断对象池中是否有空闲的对象
         if (this.arrowPool.size() > 0) {
@@ -38,7 +37,8 @@ cc.Class({
         } else { // 池中备用对象不够时，用 cc.instantiate 重新创建
             newArrow = cc.instantiate(this.arrow)
         }
-        this.arch.getComponent('arch').node.addChild(newArrow)
+        // 添加箭体
+        node.addChild(newArrow)
     },
 
     addGoal: function () {
@@ -64,12 +64,10 @@ cc.Class({
         this.addGoal()
         // 添加箭体
         this.addPool()
-        this.addArrow()
+        this.addArrow(this.arch.getComponent('arch').node)
     },
 
     // called every frame
     update: function (dt) {
-        // 目标物从右往左移动
-        this.newGoal.x -= dt * 100
     },
 });
