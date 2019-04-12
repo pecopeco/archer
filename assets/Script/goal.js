@@ -34,10 +34,10 @@ cc.Class({
         let shootArrow = this.main.arch.getComponent('arch').node.getChildByName("arrow")
         // 箭体被销毁、已经被射落不再执行射中逻辑
         if (shootArrow && !this.arrowAdded) {
-            let arrowPosition = shootArrow.parent.convertToWorldSpaceAR(shootArrow.getPosition())
+            let arrowPosition = shootArrow.parent.convertToWorldSpaceAR(cc.v2(shootArrow.getPosition().x, shootArrow.getPosition().y + ((shootArrow.height / 2) - 20)))
             let goalPosition = this.node.parent.convertToWorldSpaceAR(this.node.position)
             let distance = goalPosition.sub(arrowPosition).mag()
-            if (distance < 80) {
+            if (distance < 60) {
                 // 得分
                 this.main.addScore()
                 // 停止原箭体飞行
@@ -45,16 +45,15 @@ cc.Class({
                 // 添加伪箭体到射中目标物
                 this.arrowAdded = true
                 this.main.addBreakArrow(this.node)
-                // 设置目标物携带箭体大小、角度
-                console.log(this.node)
+                // 设置目标物携带伪箭体大小、角度
                 this.node.getChildByName("break-arrow").rotation = shootArrow.parent.rotation
                 this.node.getChildByName("break-arrow").setPosition(this.node.convertToNodeSpaceAR(arrowPosition))
                 this.node.getChildByName("break-arrow").scale = 0.68
                 this.node.getChildByName("break-arrow").setSiblingIndex(5)
-                // 执行目标掉落动作
+                // 停止目标物从右往左移动，执行掉落动作
                 this.stopMove = true
                 this.node.runAction(this.setAction())
-                // 销毁已射中原箭体，并延迟添加新箭体
+                // 销毁已射中原箭体，并延迟添加新箭体到弓上
                 shootArrow.destroy()
                 this.main.delayAddArrow(this.main.arch.getComponent('arch').node)
                 // 重建目标节点
