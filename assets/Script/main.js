@@ -18,7 +18,15 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-        goal: {
+        goal1: {
+            default: null,
+            type: cc.Prefab
+        },
+        goal2: {
+            default: null,
+            type: cc.Prefab
+        },
+        goal3: {
             default: null,
             type: cc.Prefab
         }
@@ -57,23 +65,8 @@ cc.Class({
         node.addChild(newArrow)
     },
 
-    addGoalPool: function () {
-        // 预设同屏最多五个目标物
-        this.goalPool = new cc.NodePool()
-        let initCount = 5
-        for (let i = 0; i < initCount; ++i) {
-            this.goalPool.put(cc.instantiate(this.goal))
-        }
-    },
-
-    addGoal: function () {
-        let newGoal = null;
-        // 判断对象池中是否有空闲的对象
-        if (this.goalPool.size() > 0) {
-            newGoal = this.goalPool.get()
-        } else { // 池中备用对象不够时，用 cc.instantiate 重新创建
-            newGoal = cc.instantiate(this.goal)
-        }
+    addGoal: function (goal) {
+        let newGoal = cc.instantiate(goal)
         // 添加箭体
         this.node.addChild(newGoal)
         // 设置目标物起始位置
@@ -91,10 +84,11 @@ cc.Class({
     onLoad: function () {
         // 得分
         this.scorePoint = 0
-        // 添加节点
-        this.addGoalPool()
+        // 添加目标物
         setInterval(() => {
-            this.addGoal()
+            let maxNum = 3
+            let goalIndex = Math.round(Math.random() * (maxNum - 1)) + 1
+            this.addGoal(this['goal' + goalIndex])
         }, 1500)
         // 添加箭体
         this.addArrowPool()

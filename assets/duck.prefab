@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "chicken",
+    "_name": "duck",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -39,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 434,
-      "height": 488
+      "width": 288,
+      "height": 387
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -49,14 +49,14 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 367,
-      "y": 897,
+      "x": 381,
+      "y": 894,
       "z": 0
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3,
-      "y": 0.3,
+      "x": 0.43,
+      "y": 0.43,
       "z": 1
     },
     "_rotationX": 0,
@@ -82,7 +82,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "445495ae-a0fe-498f-9a48-8dd39e15ce5d"
+      "__uuid__": "f9a7bd8e-1ff3-4b22-a7e2-ba546cbd2951"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -119,7 +119,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "ff0ljBIj9Jc4Qyj4Rn4shl",
+    "fileId": "bfUU7oiItGJIivQLDY0xmQ",
     "sync": false
   }
 ]

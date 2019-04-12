@@ -49,7 +49,7 @@ cc.Class({
                 // 设置目标物携带伪箭体大小、角度
                 this.node.getChildByName("break-arrow").rotation = shootArrow.parent.rotation
                 this.node.getChildByName("break-arrow").setPosition(this.node.convertToNodeSpaceAR(arrowPosition))
-                this.node.getChildByName("break-arrow").scale = 0.68
+                this.node.getChildByName("break-arrow").scale = 0.22 * (1 / this.node.scale)
                 this.node.getChildByName("break-arrow").setSiblingIndex(5)
                 // 停止目标物从右往左移动，执行掉落动作
                 this.stopMove = true
