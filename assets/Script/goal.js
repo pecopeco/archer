@@ -8,9 +8,10 @@ cc.Class({
     // 目标掉落
     setAction: function () {
         let xLength = xLength = 10 * this.node.getChildByName("break-arrow").rotation
-        var jumpUp = cc.moveBy(0.2, cc.v2(xLength, 150)).easing(cc.easeCubicActionOut())
+        var jumpUp = cc.moveBy(0.15, cc.v2(xLength, 100)).easing(cc.easeCubicActionOut())
         var jumpDown = cc.moveBy(2, cc.v2(xLength, -2000)).easing(cc.easeCubicActionIn())
-        var actionBy = cc.rotateBy(2, 360)
+        let rotation = this.node.getChildByName("break-arrow").rotation > 0 ? 360 : -360
+        let actionBy = cc.rotateBy(2, rotation)
         // 同步执行旋转、移动，顺序执行先上升，后掉落
         return cc.spawn(actionBy, cc.sequence(jumpUp, jumpDown))
     },
