@@ -61,9 +61,8 @@ cc.Class({
                 // this.node.destroy()
             }
         }
-        // 超出屏幕，重建目标节点
+        // 超出屏幕，销毁目标节点
         if (this.node.x < ((-this.node.parent.width / 2) - 100) || (this.node.y < ((-this.node.parent.height / 2) - 500))) {
-            this.main.addGoal()
             this.node.destroy()
         }
     },

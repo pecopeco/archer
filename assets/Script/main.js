@@ -24,7 +24,7 @@ cc.Class({
         }
     },
 
-    addPool: function () {
+    addArrowPool: function () {
         // 预设同屏最多五根箭
         this.arrowPool = new cc.NodePool()
         let initCount = 5
@@ -57,13 +57,30 @@ cc.Class({
         node.addChild(newArrow)
     },
 
+    addGoalPool: function () {
+        // 预设同屏最多五个目标物
+        this.goalPool = new cc.NodePool()
+        let initCount = 5
+        for (let i = 0; i < initCount; ++i) {
+            this.goalPool.put(cc.instantiate(this.goal))
+        }
+    },
+
     addGoal: function () {
-        // 添加目标物
-        this.newGoal = cc.instantiate(this.goal)
-        this.node.addChild(this.newGoal)
+        let newGoal = null;
+        // 判断对象池中是否有空闲的对象
+        if (this.goalPool.size() > 0) {
+            newGoal = this.goalPool.get()
+        } else { // 池中备用对象不够时，用 cc.instantiate 重新创建
+            newGoal = cc.instantiate(this.goal)
+        }
+        // 添加箭体
+        this.node.addChild(newGoal)
         // 设置目标物起始位置
-        this.newGoal.setPosition(cc.v2(380, 300))
-        this.newGoal.getComponent('goal').main = this
+        let startX = (newGoal.parent.width / 2) + (newGoal.width * newGoal.scale / 2)
+        let startY = (Math.random() * newGoal.parent.height / 4) + (newGoal.parent.height / 4) - (newGoal.height / 2 * newGoal.scale)
+        newGoal.setPosition(cc.v2(startX, startY))
+        newGoal.getComponent('goal').main = this
     },
 
     addScore: function () {
@@ -72,14 +89,15 @@ cc.Class({
     },
 
     onLoad: function () {
-        // 目标节点
-        this.newGoal
         // 得分
         this.scorePoint = 0
         // 添加节点
-        this.addGoal()
+        this.addGoalPool()
+        setInterval(() => {
+            this.addGoal()
+        }, 1500)
         // 添加箭体
-        this.addPool()
+        this.addArrowPool()
         this.addArrow(this.arch.getComponent('arch').node)
     },
 
