@@ -49,7 +49,9 @@ cc.Class({
 
     delayAddArrow: function (node) {
         setTimeout(() => {
-            this.addArrow(node)
+            if (!node.getChildByName("arrow")) {
+                this.addArrow(node)
+            }
         }, 1000)
     },
 
