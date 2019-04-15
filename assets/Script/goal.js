@@ -39,11 +39,10 @@ cc.Class({
         this.arrowAdded = true
         this.main.addBreakArrow(this.node)
         // 设置目标物携带伪箭体大小、角度
-        let arrowPosition = other.node.parent.convertToWorldSpaceAR(cc.v2(other.node.getPosition().x, other.node.getPosition().y + ((other.node.height / 2) - 20)))
+        let arrowPosition = other.node.parent.convertToWorldSpaceAR(cc.v2(other.node.getPosition().x, other.node.getPosition().y + ((other.node.height / 2) - 240)))
         self.node.getChildByName("break-arrow").rotation = other.node.parent.rotation
         self.node.getChildByName("break-arrow").setPosition(self.node.convertToNodeSpaceAR(arrowPosition))
-        self.node.getChildByName("break-arrow").scale = 0.22 * (1 / self.node.scale)
-        self.node.getChildByName("break-arrow").setSiblingIndex(5)
+        self.node.getChildByName("break-arrow").scale = 0.21 * (1 / self.node.scale)
         // 停止目标物从右往左移动，执行掉落动作
         this.stopMove = true
         self.node.runAction(this.setAction())
