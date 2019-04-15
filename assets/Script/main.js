@@ -29,6 +29,10 @@ cc.Class({
         goal3: {
             default: null,
             type: cc.Prefab
+        },
+        goal4: {
+            default: null,
+            type: cc.Prefab
         }
     },
 
@@ -88,7 +92,7 @@ cc.Class({
         this.scorePoint = 0
         // 添加目标物
         setInterval(() => {
-            let maxNum = 3
+            let maxNum = 4
             let goalIndex = Math.round(Math.random() * (maxNum - 1)) + 1
             this.addGoal(this['goal' + goalIndex])
         }, 1500)
