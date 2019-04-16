@@ -34,9 +34,7 @@ cc.Class({
         this.main.addScore(10)
         // 停止原箭体飞行
         other.getComponent('arrow').fly = false
-        // 添加伪箭体到射中目标物
-        // this.arrowAdded = true
-        // 设置目标物携带伪箭体大小、角度
+        // 设置目标物携带伪箭体大小、角度，添加伪箭体到射中目标物
         let arrowPosition = other.node.parent.convertToWorldSpaceAR(cc.v2(other.node.getPosition().x, other.node.getPosition().y + ((other.node.height / 2) - 240)))
         let breakArrowRotation = other.node.parent.rotation
         let breakArrowScale = 0.21 * (1 / self.node.scale)
@@ -44,6 +42,7 @@ cc.Class({
         this.main.addBreakArrow(this.node, breakArrowRotation, breakArrowScale, convertPosition)
         // 停止目标物从右往左移动，执行掉落动作
         if (this.node.children.length >= 2) {
+            this.arrowAdded = true
             this.main.addScore(50)
             this.stopMove = true
             self.node.runAction(this.setAction())
