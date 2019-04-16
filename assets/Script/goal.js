@@ -5,9 +5,19 @@ cc.Class({
     properties: {
     },
 
+    // 目标被射中
+    
+    shootAction: function () {
+        let xLength = xLength = 5 * this.node.getChildByName("break-arrow").rotation
+        var jumpRight = cc.moveBy(0.5, cc.v2(xLength, 0)).easing(cc.easeCubicActionOut())
+        var jumpUp = cc.moveBy(0.5, cc.v2(0, 30)).easing(cc.easeCubicActionOut())
+        let light = cc.blink(0.1, 2)
+        return cc.spawn(light, jumpRight, jumpUp)
+    },
+
     // 目标掉落
-    setAction: function () {
-        let xLength = xLength = 10 * this.node.getChildByName("break-arrow").rotation
+    dropAction: function () {
+        let xLength = xLength = 10 * this.node.children[this.node.children.length - 1].rotation
         var jumpUp = cc.moveBy(0.15, cc.v2(xLength, 100)).easing(cc.easeCubicActionOut())
         var jumpDown = cc.moveBy(2, cc.v2(xLength, -2000)).easing(cc.easeCubicActionIn())
         let rotation = this.node.getChildByName("break-arrow").rotation > 0 ? 180 : -180
@@ -40,12 +50,15 @@ cc.Class({
         let breakArrowScale = 0.21 * (1 / self.node.scale)
         let convertPosition = self.node.convertToNodeSpaceAR(arrowPosition)
         this.main.addBreakArrow(this.node, breakArrowRotation, breakArrowScale, convertPosition)
-        // 停止目标物从右往左移动，执行掉落动作
-        if (this.node.children.length >= 2) {
+        // 开始被射中动作
+        if (this.node.children.length < 2) {
+            self.node.runAction(this.shootAction())
+        } else {
+            // 到达掉落临界值，停止目标物从右往左移动，执行掉落动作
             this.arrowAdded = true
             this.main.addScore(50)
             this.stopMove = true
-            self.node.runAction(this.setAction())
+            self.node.runAction(this.dropAction())
         }
         // 销毁已射中原箭体，并延迟添加新箭体到弓上
         other.node.destroy()
