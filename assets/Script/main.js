@@ -36,6 +36,30 @@ cc.Class({
         }
     },
 
+    addBreakArrowPool: function () {
+        // 预设同屏最多五根箭
+        this.breakArrowPool = new cc.NodePool()
+        let initCount = 5
+        for (let i = 0; i < initCount; ++i) {
+            this.breakArrowPool.put(cc.instantiate(this.breakArrow))
+        }
+    },
+
+    addBreakArrow: function (node, rotation, scale, convertPosition) {
+        let newArrow = null;
+        // 判断对象池中是否有空闲的对象
+        if (this.breakArrowPool.size() > 0) {
+            newArrow = this.breakArrowPool.get()
+        } else { // 池中备用对象不够时，用 cc.instantiate 重新创建
+            newArrow = cc.instantiate(this.breakArrow)
+        }
+        // 添加箭体
+        newArrow.rotation = rotation
+        newArrow.scale = scale
+        newArrow.setPosition(convertPosition)
+        node.addChild(newArrow)
+    },
+
     addArrowPool: function () {
         // 预设同屏最多五根箭
         this.arrowPool = new cc.NodePool()
@@ -43,20 +67,6 @@ cc.Class({
         for (let i = 0; i < initCount; ++i) {
             this.arrowPool.put(cc.instantiate(this.arrow))
         }
-    },
-
-    addBreakArrow: function (node) {
-        let newArrow = cc.instantiate(this.breakArrow)
-        // 添加箭体
-        node.addChild(newArrow)
-    },
-
-    delayAddArrow: function (node) {
-        setTimeout(() => {
-            if (!node.getChildByName("arrow")) {
-                this.addArrow(node)
-            }
-        }, 1000)
     },
 
     addArrow: function (node) {
@@ -69,6 +79,14 @@ cc.Class({
         }
         // 添加箭体
         node.addChild(newArrow)
+    },
+
+    delayAddArrow: function (node) {
+        setTimeout(() => {
+            if (!node.getChildByName("arrow")) {
+                this.addArrow(node)
+            }
+        }, 100)
     },
 
     addGoal: function (goal) {
@@ -97,6 +115,7 @@ cc.Class({
             this.addGoal(this['goal' + goalIndex])
         }, 1500)
         // 添加箭体
+        this.addBreakArrowPool()
         this.addArrowPool()
         this.addArrow(this.arch.getComponent('arch').node)
     },
