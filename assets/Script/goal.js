@@ -31,7 +31,7 @@ cc.Class({
         // 避免掉落后重复射击
         if (this.arrowAdded) return
         // 得分
-        this.main.addScore()
+        this.main.addScore(10)
         // 停止原箭体飞行
         other.getComponent('arrow').fly = false
         // 添加伪箭体到射中目标物
@@ -44,6 +44,7 @@ cc.Class({
         this.main.addBreakArrow(this.node, breakArrowRotation, breakArrowScale, convertPosition)
         // 停止目标物从右往左移动，执行掉落动作
         if (this.node.children.length >= 2) {
+            this.main.addScore(50)
             this.stopMove = true
             self.node.runAction(this.setAction())
         }

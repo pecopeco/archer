@@ -100,8 +100,8 @@ cc.Class({
         newGoal.getComponent('goal').main = this
     },
 
-    addScore: function () {
-        this.scorePoint += 10
+    addScore: function (num) {
+        this.scorePoint += num
         this.score.string = '得分: ' + this.scorePoint
     },
 
