@@ -6,6 +6,10 @@ cc.Class({
             default: null,
             type: cc.Sprite
         },
+        time: {
+            default: null,
+            type: cc.Label
+        },
         score: {
             default: null,
             type: cc.Label
@@ -89,16 +93,45 @@ cc.Class({
         }, 100)
     },
 
-    addGoal: function (goal) {
-        let newGoal = cc.instantiate(goal)
-        // 添加箭体
-        this.node.addChild(newGoal)
-        // 设置目标物起始位置
-        let startX = (newGoal.parent.width / 2) + (newGoal.width * newGoal.scale / 2)
-        let startY = (Math.random() * newGoal.parent.height / 4) + (newGoal.parent.height / 4) - (newGoal.height / 2 * newGoal.scale)
-        newGoal.setPosition(cc.v2(startX, startY))
-        newGoal.getComponent('goal').main = this
+    addGoal: function () {
+        // 随机添加目标物
+        this.addGoalTime = setInterval(() => {
+            let maxNum = 4
+            let goalIndex = Math.round(Math.random() * (maxNum - 1)) + 1
+            let goal = this['goal' + goalIndex]
+            let newGoal = cc.instantiate(goal)
+            this.node.addChild(newGoal)
+            // 设置目标物起始位置
+            let startX = (this.node.width / 2) + (newGoal.width * newGoal.scale / 2)
+            let startY = (Math.random() * this.node.height / 4) + (this.node.height / 4) - (newGoal.height / 2 * newGoal.scale)
+            newGoal.setPosition(cc.v2(startX, startY))
+            newGoal.getComponent('goal').main = this
+        }, 1500)
     },
+
+    timing: function () {
+        let timeLine = 60
+        let timeout = setInterval(() => {
+            if (timeLine === 0) {
+                this.pause()
+                clearInterval(timeout)
+                return
+            }
+            timeLine -= 1
+            this.time.string = '倒计时: ' + timeLine
+        }, 1000)
+    },
+
+    pause: function () {
+        window.Global = {
+			score: this.scorePoint
+		}
+        cc.director.loadScene ('start', function(){})
+        clearInterval(this.addGoalTime)
+    },
+
+    // start: function () {
+    // },
 
     addScore: function (num) {
         this.scorePoint += num
@@ -106,14 +139,12 @@ cc.Class({
     },
 
     onLoad: function () {
+        // 开始倒计时
+        this.timing()
         // 得分
         this.scorePoint = 0
         // 添加目标物
-        setInterval(() => {
-            let maxNum = 4
-            let goalIndex = Math.round(Math.random() * (maxNum - 1)) + 1
-            this.addGoal(this['goal' + goalIndex])
-        }, 1500)
+        this.addGoal()
         // 添加箭体
         this.addBreakArrowPool()
         this.addArrowPool()
