@@ -8,7 +8,7 @@ cc.Class({
     // 目标被射中
     
     shootAction: function () {
-        let xLength = xLength = 5 * this.node.getChildByName("break-arrow").rotation
+        let xLength = 5 * this.node.getChildByName("break-arrow").rotation
         var jumpRight = cc.moveBy(0.5, cc.v2(xLength, 0)).easing(cc.easeCubicActionOut())
         var jumpUp = cc.moveBy(0.5, cc.v2(0, 30)).easing(cc.easeCubicActionOut())
         let light = cc.blink(0.1, 2)
