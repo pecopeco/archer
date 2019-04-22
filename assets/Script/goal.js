@@ -40,6 +40,21 @@ cc.Class({
     onCollisionEnter: function (other, self) {
         // 避免掉落后重复射击
         if (this.arrowAdded) return
+        // 为每种目标物单独设置掉落所需箭数、掉落分
+        let dropNum, dropScore
+        if (self.name.indexOf('chicken') !== -1) {
+            dropNum = 2
+            dropScore = 50
+        } else if (self.name.indexOf('dinosaur') !== -1) {
+            dropNum = 4
+            dropScore = 100
+        } else if (self.name.indexOf('duck') !== -1) {
+            dropNum = 2
+            dropScore = 50
+        } else if (self.name.indexOf('fish') !== -1) {
+            dropNum = 3
+            dropScore = 80
+        }
         // 得分
         this.main.addScore(10)
         // 停止原箭体飞行
@@ -51,12 +66,12 @@ cc.Class({
         let convertPosition = self.node.convertToNodeSpaceAR(arrowPosition)
         this.main.addBreakArrow(this.node, breakArrowRotation, breakArrowScale, convertPosition)
         // 开始被射中动作
-        if (this.node.children.length < 2) {
+        if (this.node.children.length < dropNum) {
             self.node.runAction(this.shootAction())
         } else {
             // 到达掉落临界值，停止目标物从右往左移动，执行掉落动作
             this.arrowAdded = true
-            this.main.addScore(50)
+            this.main.addScore(dropScore)
             this.stopMove = true
             self.node.runAction(this.dropAction())
         }
