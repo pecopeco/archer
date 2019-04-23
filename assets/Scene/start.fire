@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.3411848763118441,
-      "y": 0.3411848763118441,
+      "x": 0.5140569133280332,
+      "y": 0.5140569133280332,
       "z": 1
     },
     "_quat": {
@@ -773,7 +773,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 284.47,
+      "width": 213.35,
       "height": 40
     },
     "_anchorPoint": {
@@ -818,7 +818,7 @@
     "_useOriginalSize": false,
     "_string": "历史最高得分: 0",
     "_N$string": "历史最高得分: 0",
-    "_fontSize": 40,
+    "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -858,7 +858,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 204.47,
+      "width": 153.35,
       "height": 40
     },
     "_anchorPoint": {
@@ -903,7 +903,7 @@
     "_useOriginalSize": false,
     "_string": "本局得分: 0",
     "_N$string": "本局得分: 0",
-    "_fontSize": 40,
+    "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -944,7 +944,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 338,
-      "height": 200
+      "height": 280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -986,8 +986,8 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_string": "拉动弓箭射击目标\n\n每射中一箭获得相应分数\n\n目标中箭达一定数量直接狗带",
-    "_N$string": "拉动弓箭射击目标\n\n每射中一箭获得相应分数\n\n目标中箭达一定数量直接狗带",
+    "_string": "拉动弓箭射击目标\n\n每射中一箭获得相应分数\n\n目标中箭达一定数量直接狗带\n\n越难击落的目标击落分越高",
+    "_N$string": "拉动弓箭射击目标\n\n每射中一箭获得相应分数\n\n目标中箭达一定数量直接狗带\n\n越难击落的目标击落分越高",
     "_fontSize": 26,
     "_lineHeight": 40,
     "_enableWrapText": true,
