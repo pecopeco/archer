@@ -56,6 +56,12 @@ cc.Class({
         } else if (self.name.indexOf('cat') !== -1) {
             dropNum = 2
             dropScore = 80
+        } else if (self.name.indexOf('boat') !== -1) {
+            dropNum = 3
+            dropScore = 100
+        } else if (self.name.indexOf('loong') !== -1) {
+            dropNum = 5
+            dropScore = 200
         }
         // 得分
         this.main.addScore(10)

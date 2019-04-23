@@ -41,6 +41,14 @@ cc.Class({
         goal5: {
             default: null,
             type: cc.Prefab
+        },
+        goal6: {
+            default: null,
+            type: cc.Prefab
+        },
+        goal7: {
+            default: null,
+            type: cc.Prefab
         }
     },
 
@@ -100,7 +108,7 @@ cc.Class({
     addGoal: function () {
         // 随机添加目标物
         this.addGoalTime = setInterval(() => {
-            let maxNum = 5
+            let maxNum = 7
             let goalIndex = Math.round(Math.random() * (maxNum - 1)) + 1
             let goal = this['goal' + goalIndex]
             let newGoal = cc.instantiate(goal)
