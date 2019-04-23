@@ -49,19 +49,19 @@ cc.Class({
             dropScore = 50
         } else if (self.name.indexOf('dinosaur') !== -1) {
             dropNum = 3
-            dropScore = 100
+            dropScore = 150
         } else if (self.name.indexOf('fish') !== -1) {
             dropNum = 2
-            dropScore = 80
+            dropScore = 120
         } else if (self.name.indexOf('cat') !== -1) {
             dropNum = 2
-            dropScore = 80
+            dropScore = 120
         } else if (self.name.indexOf('boat') !== -1) {
             dropNum = 3
-            dropScore = 100
+            dropScore = 150
         } else if (self.name.indexOf('loong') !== -1) {
             dropNum = 5
-            dropScore = 200
+            dropScore = 300
         }
         // 得分
         this.main.addScore(10)
