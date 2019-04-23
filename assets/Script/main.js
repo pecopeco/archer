@@ -137,7 +137,10 @@ cc.Class({
     pause: function () {
         window.Global = {
 			score: this.scorePoint
-		}
+        }
+        if (cc.sys.localStorage.getItem("score") < this.scorePoint) {
+            cc.sys.localStorage.setItem("score", this.scorePoint)
+        }
         cc.director.loadScene ('start', function(){})
         clearInterval(this.addGoalTime)
     },
