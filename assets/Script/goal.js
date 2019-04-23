@@ -43,16 +43,19 @@ cc.Class({
         // 为每种目标物单独设置掉落所需箭数、掉落分
         let dropNum, dropScore
         if (self.name.indexOf('chicken') !== -1) {
-            dropNum = 2
+            dropNum = 1
+            dropScore = 50
+        } else if (self.name.indexOf('duck') !== -1) {
+            dropNum = 1
             dropScore = 50
         } else if (self.name.indexOf('dinosaur') !== -1) {
-            dropNum = 4
-            dropScore = 100
-        } else if (self.name.indexOf('duck') !== -1) {
-            dropNum = 2
-            dropScore = 50
-        } else if (self.name.indexOf('fish') !== -1) {
             dropNum = 3
+            dropScore = 100
+        } else if (self.name.indexOf('fish') !== -1) {
+            dropNum = 2
+            dropScore = 80
+        } else if (self.name.indexOf('cat') !== -1) {
+            dropNum = 2
             dropScore = 80
         }
         // 得分
