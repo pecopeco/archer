@@ -32,8 +32,8 @@ cc.Class({
                 AV: AV
             }
         }
-        if (window.ID && window.ID.ID) {
-            var todo = AV.Object.createWithoutData('Todo', window.ID.ID);
+        if (cc.sys.localStorage.getItem("id")) {
+            var todo = AV.Object.createWithoutData('Todo', cc.sys.localStorage.getItem("id"));
         } else {
             // 新建一个 Todo 对象
             var Todo = AV.Object.extend('Todo')
@@ -47,9 +47,7 @@ cc.Class({
             todo.save().then(function (todo) {
                 // 成功保存之后，执行其他逻辑.
                 console.log('New object created with objectId: ' + todo.id)
-                window.ID = {
-                    ID: todo.id
-                }
+                cc.sys.localStorage.setItem("id", todo.id)
             }, function (error) {
                 // 异常处理
                 console.error('Failed to create new object, with error message: ' + error.message)
