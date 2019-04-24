@@ -29,7 +29,6 @@ cc.Class({
     },
 
     // 获取数据
-
     getData: function () {
         let AV = window.SAVE.AV
         let Query = new AV.Query("Todo")
@@ -37,17 +36,16 @@ cc.Class({
             var json = JSON.parse(JSON.stringify(data))
             console.log("云端数据为:")
             console.log(json)
+            json.sort(function(a, b){
+                return b.score - a.score
+            })
             json.map((item, index) => {
                 this.addTop()
                 let label = this.scroll.content.children[index]
                 label.children[0].getComponent(cc.Label).string = index + 1
                 label.children[1].getComponent(cc.Label).string = item.name
                 label.children[2].getComponent(cc.Label).string = item.score
-                for (let i = 0; i < 3; i++) {
-                    // label.children[index].getComponent(cc.Label).node.y = -100
-                }
                 label.y -= 30 * index
-                console.log(label)
             })
         }, (err) => {
             //错误信息 err
