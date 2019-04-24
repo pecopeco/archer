@@ -25,6 +25,8 @@ cc.Class({
         //这里的 customEventData 参数就等于你之前设置的 "foobar"
         cc.sys.localStorage.setItem("name", text)
         this.user.string = text
+        cc.sys.localStorage.removeItem("id")
+
     },
     //假设这个回调是给 editingReturn 事件的
     onEditingReturn: function(editbox,  customEventData) {

@@ -17,6 +17,10 @@ cc.Class({
 		startBtn: {
             default: null,
             type: cc.Label
+        },
+        scroll: {
+            default: null,
+            type: cc.ScrollView
         }
     },
 
@@ -57,6 +61,8 @@ cc.Class({
     
     // use this for initialization
     onLoad: function () {
+        // 隐藏排行榜
+        this.scroll.node.active = false
         // 更新本局得分
 		if (window.Global) {
             this.score.string = '本局得分: ' + window.Global.score
