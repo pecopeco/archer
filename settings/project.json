@@ -25,7 +25,11 @@
   ],
   "design-resolution-height": 1334,
   "design-resolution-width": 750,
-  "excluded-modules": [],
+  "excluded-modules": [
+    "Geom Utils",
+    "3D",
+    "3D Primitive"
+  ],
   "facebook": {
     "appID": "",
     "audience": {

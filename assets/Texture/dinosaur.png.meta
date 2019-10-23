@@ -1,13 +1,16 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.3",
   "uuid": "184feb69-7585-4837-b1d7-d1028f34255e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "platformSettings": {},
   "subMetas": {
     "dinosaur": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "4a8c17f0-dd2b-415f-a54a-500c5d654cc6",
       "rawTextureUuid": "184feb69-7585-4837-b1d7-d1028f34255e",
       "trimType": "auto",
