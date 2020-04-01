@@ -32,7 +32,7 @@ cc.Class({
     getData: function () {
         let AV = window.SAVE.AV
         let Query = new AV.Query("Todo")
-        Query.find().then( (data) => {
+        Query.find().then((data) => {
             var json = JSON.parse(JSON.stringify(data))
             console.log("云端数据为:")
             console.log(json)
@@ -48,6 +48,7 @@ cc.Class({
                 label.y -= 30 * index
             })
         }, (err) => {
+            console.log('错误信息: ' + err)
             //错误信息 err
         })
     },
